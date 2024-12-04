@@ -1,0 +1,20 @@
+Establecer la base de datos de la imagen de postgres:
+- FROM postgres:14
+
+Agregar líneas para copiar archivos al contenedor:
+- COPY ./db/schema.sql /docker-entrypoint-initdb.d/01_schema.sql
+- COPY ./db/data.sql /docker-entrypoint-initdb.d/02_data.sql
+
+### 3. Crear la imagen de la base de datos
+
+dentro de la carpeta de la base de datos:
+
+```
+docker build -t jhoan1/midterm .
+```
+
+### 4. Ejecutar servidor con postgres
+
+```
+docker run --name midterm -p 0.0.0.0:5432:5432 -e POSTGRES_PASSWORD=contraseña jhoan1/midterm
+```
